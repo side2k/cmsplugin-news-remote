@@ -1,0 +1,16 @@
+﻿{%load pytils_dt %}
+<table class="news">
+{% for news in latest %}
+	<tr>
+		<td class="date">
+			<div class="day">{{news.pub_date|date:"d"}}</div>
+			<div class="month">{{news.pub_date|ru_strftime:"%B"}}</div>			
+		</td>
+		<td>
+			<a href="{{ news.news_remote_link }}">{{ news.title }}</a>
+		</td>
+	</tr>
+{% empty %}
+	<tr><td>новостей нет</td>
+{% endfor %}
+</table>
