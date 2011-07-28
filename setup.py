@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='news',
+    name='cmsplugin_news_remote',
     version='0.1',
     description='Remote news application for ATVC',
     author='outsider',
