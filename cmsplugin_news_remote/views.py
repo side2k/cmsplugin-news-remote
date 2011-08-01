@@ -14,7 +14,8 @@ def news_detail(request, **kwargs):
             news_object = news_item
             break
     template_data = {
-        "object":news_object}
+        "object":news_object,
+        "latest":news}
     template_context = RequestContext(request, template_data)
     template_filled = loader.get_template(template)
     output = template_filled.render(template_context)
