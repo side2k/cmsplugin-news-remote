@@ -2,6 +2,7 @@
 from django.template import loader, RequestContext
 from cmsplugin_news_remote import utils
 from cmsplugin_news_remote.models import LatestNewsRemotePlugin as Plugin
+from django.core.urlresolvers import reverse
 
 def news_detail(request, **kwargs):
     template = "news_detail.html"
@@ -12,7 +13,10 @@ def news_detail(request, **kwargs):
     for news_item in news:
         if kwargs["slug"] == news_item.slug:
             news_object = news_item
-            break
+            news_item.news_remote_link = reverse(
+                'remote_news_detail',
+                kwargs={'plugin_id':plugin.id, 'slug':news_item.slug})
+
     template_data = {
         "object":news_object,
         "latest":news}
