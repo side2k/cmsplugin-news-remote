@@ -1,21 +1,13 @@
 from django.conf.urls.defaults import *
 
+from piston.resource import Resource
 from news.models import News
 
-news_info_dict = {
-    'news':[1,2,3]
-}
-
-news_info_month_dict = {
-    #'queryset': News.published.all(),
-    'queryset': [1,2,3],
-    'date_field': 'pub_date',
-    'month_format': '%m',
-}
+from cmsplugin_news_remote.handlers import NewsGetHandler
 
 urlpatterns = patterns('cmsplugin_news_remote.views',
-    url(r'^get/$', 'news_get', name='news-remote-get'),
-    (r'^(?P<plugin_id>\d+)/(?P<slug>[-\w]+)/$', 
-        'news_detail', news_info_dict, 'remote_news_detail'),
+    url(r'^get/(?P<source>[-\w]+)$', Resource(NewsGetHandler), name='news-remote-get'),
+    url(r'^details/(?P<source>[-\w]+)/(?P<slug>[-\w]+)/$', 
+        'news_detail', name='news-remote-details'),
 )
 

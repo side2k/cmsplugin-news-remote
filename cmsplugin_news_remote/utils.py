@@ -1,9 +1,14 @@
-from django.core import serializers
-from django.conf import settings as project_settings
+import os
+from os import path
 import urllib2
 import socket
-import os
+from md5 import md5
 from datetime import datetime
+
+from django.core import serializers
+from django.conf import settings
+
+
 
 def update_cache(path, source_url):
     prev_timeout = socket.getdefaulttimeout()
@@ -62,3 +67,9 @@ def get_news(cache_file_path=None):
                     continue
             news += [news_item.object]
     return news
+    
+def source_params(source):
+    source_url = settings.NEWS_SOURCES[source]
+    cache_filename = 'news_%s' % md5(source_url).hexdigest()
+    cache_path = path.join(settings.PROJECT_DIR, 'cache', cache_filename)
+    return (cache_path, source_url)
