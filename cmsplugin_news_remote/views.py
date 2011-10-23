@@ -1,8 +1,9 @@
 ﻿from django.http import HttpResponse
 from django.template import loader, RequestContext
-from cmsplugin_news_remote import utils
-from cmsplugin_news_remote.models import LatestNewsRemotePlugin as Plugin
 from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
+
+from cmsplugin_news_remote import utils
 
 def news_detail(request, **kwargs):
     template = "news_detail.html"
@@ -25,3 +26,6 @@ def news_detail(request, **kwargs):
     output = template_filled.render(template_context)
     response = HttpResponse(output, mimetype=None)
     return response
+
+def news_get(request, **kwargs):
+    return render_to_response("index.html")
