@@ -23,6 +23,8 @@ class NewsGetHandler(BaseHandler):
         data = [{
             'text':news_item.content, 
             'pub_date':datetime.strftime(news_item.pub_date, '%Y-%m-%dT%H:%M:%S%z'),
+            'day':news_item.pub_date.day,
+            'month':news_item.pub_date.month,
             'is_published':news_item.is_published,
             'url':reverse('news-remote-details', kwargs={'source':source, 'slug':news_item.slug}),
             'title':news_item.title,
