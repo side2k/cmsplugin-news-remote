@@ -1,5 +1,6 @@
 ﻿from os import path
 from md5 import md5
+from datetime import datetime
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -21,7 +22,7 @@ class NewsGetHandler(BaseHandler):
         news.sort(sort_news, reverse=True)
         data = [{
             'text':news_item.content, 
-            'pub_date':news_item.pub_date,
+            'pub_date':datetime.strftime(news_item.pub_date, '%Y-%m-%dT%H:%M:%S%z'),
             'is_published':news_item.is_published,
             'url':reverse('news-remote-details', kwargs={'source':source, 'slug':news_item.slug}),
             'title':news_item.title,
