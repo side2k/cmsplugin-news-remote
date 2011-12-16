@@ -8,6 +8,10 @@ class Command(BaseCommand):
     help = "Updates cache for remote news plugin"
     
     def handle(self, *args, **options):
+        verbose = int(options.get('verbosity', 1)) > 1
         for plugin in LatestNewsRemotePlugin.objects.all():
-            print("Updating cache for plugin %d..." % plugin.id)
-            print(plugin.update_cache())
+            if verbose:
+                print("Updating cache for plugin %d..." % plugin.id)
+                print()
+            else:
+                plugin.update_cache()
