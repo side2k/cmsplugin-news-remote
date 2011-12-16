@@ -12,6 +12,6 @@ class Command(BaseCommand):
         for plugin in LatestNewsRemotePlugin.objects.all():
             if verbose:
                 print("Updating cache for plugin %d..." % plugin.id)
-                print()
+                print(plugin.update_cache())
             else:
                 plugin.update_cache()
